@@ -1,0 +1,9 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - insilicoseq=1.5.4
+  - pandas
+  - biopython
+  - pigz

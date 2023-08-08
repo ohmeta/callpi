@@ -1,0 +1,12 @@
+channels:
+  - conda-forge
+  - bioconda
+  - defaults
+dependencies:
+  - python
+  - coreutils
+  - seqkit
+  - pigz
+  - jq
+  - executor
+  - sra-tools=3.0.3
