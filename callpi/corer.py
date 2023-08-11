@@ -20,8 +20,8 @@ WORKFLOWS_SIMULATE = [
 WORKFLOWS_PROFILING = [
     "prepare_reads_all",
     "raw_all",
-    "call_snp_gtpro_all",
-    "call_all",
+    "calling_snp_gtpro_all",
+    "calling_all",
     "all",
 ]
 

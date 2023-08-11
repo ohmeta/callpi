@@ -15,14 +15,23 @@ params:
       do: False
 
   qcreport:
-    do: True
+    do: False
     seqkit:
       threads: 4
+
+  gtpro:
+    do: True
+    threads: 16
+    database: "/home/jiezhu/databases/ecogenomics/GT-Pro/database/20190723_881species"
+    database_annotation: "~/databases/ecogenomics/GT-Pro/database/variants_main.covered.hq.snp_dict.tsv"
+    script: "/home/jiezhu/toolkit/gt-pro/GT_Pro"
 
 
 output:
   simulate: "results/00.simulate"
   raw: "results/00.raw"
+  qcreport: "results/03.qcreport"
+  calling: "results/04.calling"
 
 
 envs:
@@ -30,3 +39,4 @@ envs:
   raw: "envs/raw.yaml"
   fastqc: "envs/fastqc.yaml"
   multiqc: "envs/multiqc.yaml"
+  report: "envs/report.yaml"

@@ -37,7 +37,7 @@ class metaconfig:
         "logs/00.raw_fastqc_multiqc",
         "logs/00.raw_report",
         "logs/00.raw_report_merge",
-        "logs/01.call_snp_gtpro"
+        "logs/01.calling_snp_gtpro"
     ]
 
     def __init__(self, work_dir):
