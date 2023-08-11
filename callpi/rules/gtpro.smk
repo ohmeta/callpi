@@ -15,14 +15,19 @@ rule calling_snp_gtpro:
         db = config["params"]["gtpro"]["database"],
         db_anno = config["params"]["gtpro"]["database_annotation"],
         gtpro = config["params"]["gtpro"]["script"]
+    threads:
+        config["params"]["gtpro"]["threads"]
     shell:
         '''
         OUTDIR=$(dirname {output.res})
         rm -rf $OUTDIR
         mkdir -p $OUTDIR
 
-        OUTTSV=${{output.res%.gz}}
-        OUTTSVANNO=${{output.res_anno%.gz}}
+        OUTRES={output.res}
+        OUTRESANNO={output.res_anno}
+
+        OUTTSV=${{OUTRES%.gz}}
+        OUTTSVANNO=${{OUTRESANNO%.gz}}
 
         R1=$(jq -r -M '.PE_FORWARD' {input} | sed 's/^null$//g')
         R2=$(jq -r -M '.PE_REVERSE' {input} | sed 's/^null$//g')
@@ -34,16 +39,22 @@ rule calling_snp_gtpro:
             then
                 zcat $R1 $R2 $RS | \
                 {params.gtpro} genotype \
-                -d {params.db} >$OUTTSV 2>{log}
+                -d {params.db} \
+                -t {threads} \
+                >$OUTTSV 2>{log}
             else
                 seqtk mergepe $R1 $R2 | \
                 {params.gtpro} genotype \
-                -d {params.db} >$OUTTSV 2>{log}
+                -d {params.db} \
+                -t {threads} \
+                >$OUTTSV 2>{log}
             fi
         else
             zcat $RS | \
             {params.gtpro} genotype \
-            -d {params.db} >$OUTTSV 2>{log}
+            -d {params.db} \
+            -t {threads} \
+            >$OUTTSV 2>{log}
         fi
 
         {params.gtpro} parse \
